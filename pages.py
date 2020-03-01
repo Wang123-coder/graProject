@@ -325,6 +325,7 @@ def processPage(out,grid):
                                     style = {'button_color':'#004080'}, 
                                     button_style = 'info',
                                     layout = widgets.Layout(width = '2.5cm'))
+    grid[19,23:28] = widgets.Play()
 
     #---------2) 界面中央---------#
     left_list = initProcess_Left(grid)
