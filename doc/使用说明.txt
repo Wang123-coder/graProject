@@ -1,0 +1,10 @@
+在jupyter中运行程序：
+
+1.新建python3文件
+
+2.输入：
+import os 
+os.chdir(r'【D:/Document/College/GDProject/graProject】')     #【内容】是graProject的绝对路径
+%run ww_main.py
+
+3.运行

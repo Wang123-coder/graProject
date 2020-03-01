@@ -1,0 +1,16 @@
+>>>RISC-V寄存器含义
+x0 : the constant value0
+x1 : return address
+x2 : stack pointer
+x3 : global pointer
+x4 : thread pointer
+x5-x7,x28-x31 : temporaries
+x8 : frame pointer
+x9,x18-x27 : saved registers
+x10-x11 : function arguments/results
+x12-x17 : function arguments
+
+>>>目前支持的指令
+add rd rs1 rs2
+addi rd rs imm
+beq rs1 rs2 offset
