@@ -14,7 +14,7 @@ display(main_out)
 #--------------以下为测试内容，可以直接从指定界面进入---------------#
 
 #pages.loginPage(main_out,init_grid)        #显示Login界面
-#pages.contentsPage(main_out,init_grid)     #直接显示目录界面
+pages.contentsPage(main_out,init_grid)     #直接显示目录界面
 #pages.knowledgePage(main_out,init_grid)    #直接显示知识梳理界面
-pages.processPage(main_out,init_grid)      #直接显示过程演示界面
+#pages.processPage(main_out,init_grid)      #直接显示过程演示界面
 #pages.testPage(main_out,init_grid)         #直接显示巩固测试界面

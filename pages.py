@@ -7,6 +7,9 @@ import ipywidgets as widgets
 import login                      #导入login.py模块，用来检验用户信息
 import initial
 import pfunction
+import cache
+import test
+from IPython.display import display, Javascript
 
 #---------------1.关闭上一个页面，并重新加载，返回新的grid------------#
 def close_FrontPage(out,grid):
@@ -137,29 +140,40 @@ def knowledgePage(out,grid):
     #显示图片
     with open('./image/teacher.jpg', 'rb') as f:
         teacher_image = f.read()
-        grid[5:13,3:9] = widgets.Image(value = teacher_image)
+        grid[6:12,1:6] = widgets.Image(value = teacher_image)
     f.close()
 
     #显示知识点内容
     with open('./doc/datapath.txt', 'r') as f1:
         datapath_txt = f1.read()
     f1.close()
-    datapath_accordion = widgets.Accordion(children=[widgets.Textarea(value=datapath_txt,disabled=True,layout=widgets.Layout(height='6cm',width='11cm'))])
-    datapath_accordion.set_title(0, '知识内容')
+    datapath_accordion = widgets.Accordion(children=[widgets.Textarea(value=datapath_txt,disabled=True,layout=widgets.Layout(height='8cm',width='auto'))])
+    datapath_accordion.set_title(0, '知识概要')
+    datapath_accordion.selected_index = None
     
     with open('./doc/cache.txt', 'r') as f2:
         cache_txt = f2.read()
     f2.close()
-    cache_accordion = widgets.Accordion(children=[widgets.Textarea(value=cache_txt,disabled=True,layout=widgets.Layout(height='6cm',width='11cm')),widgets.Output()])
-    cache_accordion.set_title(0, '知识内容')
-    cache_accordion.set_title(1, '映射计算')
+    
+    cache_accordion = widgets.Accordion(children=[widgets.Textarea(value=cache_txt,disabled=True,layout=widgets.Layout(height='8cm',width='auto')),
+                                                  widgets.GridspecLayout(10,4,width='auto',height='9.5cm'),   
+                                                  widgets.GridspecLayout(10,3,width='auto',height='9.5cm')])
+    cache_accordion.set_title(0, '知识概要')
+    cache_accordion.set_title(1, '基础操作')
+    cache_accordion.set_title(2, '数据访问')
+    cache_accordion.selected_index = None
+
+    #实现“基础操作”内容
+    cache.knowledge_base(cache_accordion.children[1])
+    #实现“映射方式”内容
+    cache.knowledge_mapway(cache_accordion.children[2])
     
     tab_title = ['数据通路', 'Cache']
-    tab = widgets.Tab(layout = widgets.Layout(width = '13cm',height='10cm'))
+    tab = widgets.Tab(layout = widgets.Layout(width = '18cm',height='11cm'))
     tab.children = [datapath_accordion, cache_accordion]
     for i in range(2):
         tab.set_title(i, tab_title[i])
-    grid[2:18,11:17] = tab
+    grid[1:18,8:17] = tab
 
     #更改、保存按钮实现
     def update(b):
@@ -212,33 +226,32 @@ def initProcess_Left(grid):
     with leftCode_out:
         display(leftCode_grid)
 
-    # DataPath界面是一个Out
+    # DataPath界面是一个Out, 里面是一个自定义Datapath类的组件
     leftDataPath_out = widgets.Output(layout={'width':'16.8cm','height':'9.6cm'})
-    pfunction.draw_datapath(['','Nothing...'],leftDataPath_out)
+    leftDatapath_widget = pfunction.Datapath()
+    with leftDataPath_out:
+        display(leftDatapath_widget)
+    widgets.link((grid[19,18:23], 'value'),(leftDatapath_widget, 'step'))
+    widgets.link((grid[19,18:23], 'max'),(leftDatapath_widget, 'max_step'))
 
-    # Cache界面是一个out,里面是一个Grid
-    leftCache_out = widgets.Output()
-    leftCache_grid = widgets.GridspecLayout(3,1,height='9.45cm')
-    leftCache_grid[0:2,0] = widgets.Button(description = 'process',
-                                      layout = widgets.Layout(width = 'auto',
-                                                              height = 'auto'))
-    leftCache_grid[2:3,0] = widgets.Button(description = 'replace',
-                                      layout = widgets.Layout(width = 'auto',
-                                                              height = 'auto'))
-    with leftCache_out:
-        display(leftCache_grid)
+    # Cache里面是一个Grid
+    leftCache_accordion = widgets.Accordion([widgets.GridspecLayout(10,4,width = 'auto',height='9.5cm'),
+                                             widgets.GridspecLayout(10,4,width = 'auto',height='9.5cm')])
+    leftCache_accordion.set_title(0, '数据访问')
+    leftCache_accordion.set_title(1, '替换算法')
+    leftCache_accordion.selected_index = None
 
     # 过程演示界面中左半部分组件
     leftab = widgets.Tab(layout = widgets.Layout(width = 'auto',height = 'auto'),
                          selected_index = 0)
-    leftab.children = [leftCode_out,leftDataPath_out,leftCache_out]
+    leftab.children = [leftCode_out,leftDataPath_out,leftCache_accordion]
     for i in range(len(leftab.children)):
         leftab.set_title(i, leftab_title[i])
     grid[1:19,0:20] = leftab
 
     left = {'code':leftCode_grid,
-            'datapath':leftDataPath_out,
-            'cache':leftCache_grid}
+            'datapath':leftDatapath_widget,
+            'cache':leftCache_accordion}
     
     return [leftab,left]
 
@@ -301,8 +314,7 @@ def initProcess_Right(grid):
     datapath_rightab.set_title('0','Register')
 
     #---------3) Cache 右半部分--------#
-    cache_rchildren = widgets.Text(description='cache')
-    cache_rightab.children = [cache_rchildren]
+    cache_rightab.children = [widgets.GridspecLayout(18,4,width='auto',height='auto')]
     cache_rightab.set_title('0','Parameter')
 
     grid[1:19,20:30] = code_rightab
@@ -325,7 +337,29 @@ def processPage(out,grid):
                                     style = {'button_color':'#004080'}, 
                                     button_style = 'info',
                                     layout = widgets.Layout(width = '2.5cm'))
-    grid[19,23:28] = widgets.Play()
+    grid[19,18:23] = widgets.Play(interval=1000,
+                                  value=0,
+                                  min=0,
+                                  max=0,
+                                  step=1,
+                                  disabled = True)
+    grid[19,23:26] = widgets.SelectionSlider(options=['0.25px','0.5px','1px','2px','4px'],
+                                             value = '1px',
+                                             continuous_update=True,
+                                             disabled = True,
+                                             layout = widgets.Layout(width = '4cm'))
+    def slider_play(change):
+        if change['new'] == '0.25px':
+            grid[19,18:23].interval = 4000
+        elif change['new'] == '0.5px':
+            grid[19,18:23].interval = 2000
+        elif change['new'] == '1px':
+            grid[19,18:23].interval = 1000
+        elif change['new'] == '2px':
+            grid[19,18:23].interval = 500
+        elif change['new'] == '4px':
+            grid[19,18:23].interval = 250
+    grid[19,23:26].observe(slider_play,names = 'value')
 
     #---------2) 界面中央---------#
     left_list = initProcess_Left(grid)
@@ -360,16 +394,18 @@ def testPage(out,grid):
 
     #显示左半部分内容：测试题
     leftab = widgets.Tab(layout = widgets.Layout(width = 'auto',height = 'auto'))
-    leftab.children = [widgets.Text()]
+    leftab.children = [widgets.GridspecLayout(11,5)]
     leftab.set_title(0,'Little Test')
     grid[1:19,0:20] = leftab
 
     #显示右半部分内容：成绩/分析/时间
     rightab = widgets.Tab(layout = widgets.Layout(width = 'auto',height = 'auto'))
-    rightab.children = [widgets.Text(description='Something',layout = widgets.Layout(width = 'auto',height = 'auto'))]
+    rightab.children = [widgets.GridspecLayout(7,6)]
     rightab.set_title(0,'Contents')
     grid[1:19,20:30] = rightab
-    
+
+    #调用 test.py里函数
+    test.test_function(leftab.children[0],rightab.children[0])
 
     #跳转页面
     def jumpToPage(b):
