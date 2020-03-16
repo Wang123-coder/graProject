@@ -5,7 +5,7 @@ from IPython.display import display
 返回值： grid
 '''
 def initGrid(out):
-    grid = widgets.GridspecLayout(20,30,height='13cm')
+    grid = widgets.GridspecLayout(20,30,width = 'auto',height='13.2cm')
     
     grid[0,0:29] = widgets.Button(disabled = False, 
                                   description = 'Welcome to learn ！',
