@@ -1,10 +1,10 @@
-ÔÚjupyterÖĞÔËĞĞ³ÌĞò£º
+åœ¨jupyterä¸­è¿è¡Œç¨‹åºï¼š
 
-1.ĞÂ½¨python3ÎÄ¼ş
+1.æ–°å»ºpython3æ–‡ä»¶
 
-2.ÊäÈë£º
+2.è¾“å…¥ï¼š
 import os 
-os.chdir(r'¡¾D:/Document/College/GDProject/graProject¡¿')     #¡¾ÄÚÈİ¡¿ÊÇgraProjectµÄ¾ø¶ÔÂ·¾¶
+os.chdir(r'ã€D:/Document/College/GDProject/graProjectã€‘')     #ã€å†…å®¹ã€‘æ˜¯graProjectçš„ç»å¯¹è·¯å¾„
 %run ww_main.py
 
-3.ÔËĞĞ
+3.è¿è¡Œ
