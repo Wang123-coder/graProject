@@ -33,17 +33,10 @@ def left_right_link(grid,leftab,right):
     def leftab_on_index_change(change):
         if change['new'] == 0:
             grid[1:19,20:30] = right['code']
-            grid[19,18:23].disabled = True
-            grid[19,23:26].disabled = True
         elif change['new'] == 1:
             grid[1:19,20:30] = right['datapath']
-            if grid[19,18:23].max != 0:
-                grid[19,18:23].disabled = False
-                grid[19,23:26].disabled = False
         elif change['new'] == 2:
             grid[1:19,20:30] = right['cache']
-            grid[19,18:23].disabled = True
-            grid[19,23:26].disabled = True
 
     leftab.observe(leftab_on_index_change, names='selected_index')
 
@@ -127,11 +120,13 @@ def main_function(grid,left_list,right):
             time.sleep(1)
             #-----------展示数据通路---------#
             leftab.selected_index = 1
-            grid[19,18:23].disabled = False
-            grid[19,23:26].disabled = False
-            left['datapath'].allInst = check['code_list']
-            left['datapath'].allType = check['type_list']
-            grid[19,18:23].max = 5 * len(left['datapath'].allInst) + 1
+            left['datapath'][9,1].disabled = False
+            left['datapath'][9,2].disabled = False
+            left['datapath'][:9,:].allInst = check['code_list']
+            left['datapath'][:9,:].allType = check['type_list']
+            left['datapath'][9,1].max = 5 * len(left['datapath'][:9,:].allInst) + 1
+            datapath_right_grid[33,2:].description = '0'
+            max_count = left['datapath'][9,1].max
             #----------更新寄存器内容--------#
             def updateReg(x):
                 if x % 5 == 0 and x != 0:
@@ -148,8 +143,8 @@ def main_function(grid,left_list,right):
                         rd_index = reg.index(rd) + 2
                         rs1_index = reg.index(rs1) + 2
                         rs2_index = reg.index(rs2) + 2
-                        rs1_value = int(datapath_right_grid[rs1_index,2].description,16)
-                        rs2_value = int(datapath_right_grid[rs2_index,2].description,16)
+                        rs1_value = int(datapath_right_grid[rs1_index,2:].description,16)
+                        rs2_value = int(datapath_right_grid[rs2_index,2:].description,16)
                         rd_value = hex(rs1_value + rs2_value)
                     elif op == 'addi':
                         rd = op_num_list[1]
@@ -157,7 +152,7 @@ def main_function(grid,left_list,right):
                         imm = int(op_num_list[3])
                         rd_index = reg.index(rd) + 2
                         rs_index = reg.index(rs) + 2
-                        rs_value = int(datapath_right_grid[rs_index,2].description,16)
+                        rs_value = int(datapath_right_grid[rs_index,2:].description,16)
                         rd_value = hex(rs_value + imm)
                     if len(rd_value) != 10 :
                         rd_value = '0x' + ((10 - len(rd_value)) * '0') + rd_value[2:]
@@ -165,17 +160,20 @@ def main_function(grid,left_list,right):
                     for i in range(3):
                         datapath_right_grid[rd_index,i].disabled = False
                         datapath_right_grid[rd_index,i].button_style = 'danger'
-                    datapath_right_grid[rd_index,2].description = rd_value
-    
-    
+                        
+                    if datapath_right_grid[33,2:].description == '0':
+                        datapath_right_grid[rd_index,2:].description = rd_value
+        
                 else:
                     for i in range(2,33):
                         for j in range(3):
                             datapath_right_grid[i,j].button_style = ''
                             datapath_right_grid[i,j].disabled = True
+                    if x == max_count:
+                        datapath_right_grid[33,2:].description = str(int(datapath_right_grid[33,2:].description) + 1)
                             
-                return
-            temp = widgets.interactive(updateReg,x = grid[19,18:23])
+                return 
+            temp = widgets.interactive(updateReg,x = left['datapath'][9,1])
             
         else:
             code_right.children[0].children[1].value += check['check']

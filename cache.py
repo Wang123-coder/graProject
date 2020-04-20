@@ -106,7 +106,7 @@ def knowledge_base(baseGrid):
 
     return
 
-#  显示“知识梳理”中的“映射方式”
+#  显示“知识梳理”中的“数据访问”
 def knowledge_mapway(mapGrid):
 
     display(Javascript("require.config({paths: {d3: 'https://d3js.org/d3.v5.min'}});"))
@@ -422,7 +422,8 @@ def process_Cache(left_accordion,right_tab):
 
         try:
             if(int(address_str,16) > int(max_16num,16)):
-                left_accordion.children[0][9,0].value = '>>>超过主存容量'
+                value = left_accordion.children[0][9,0].value
+                left_accordion.children[0][9,0].value = '<' + value + '>,超过主存容量'
                 b.button_style = 'warning'
                 b.icon = 'warning'
                 return

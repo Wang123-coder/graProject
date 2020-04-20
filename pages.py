@@ -121,21 +121,26 @@ def knowledgePage(out,grid):
     
     grid = close_FrontPage(out,grid)
     grid[0,0:29].description = '知识梳理'
-    grid[19,1:3] = widgets.Dropdown(options=[('目       录', 0), ('过程演示', 1), ('巩固测试', 2)],
+    grid[19,9:11] = widgets.Dropdown(options=[('目       录', 0), ('过程演示', 1), ('巩固测试', 2)],
                                     layout = widgets.Layout(width = '5cm'),
                                     description='跳转到： ')
-    grid[19,9:10] = widgets.Button(description = '进入',
+    grid[19,17:18] = widgets.Button(description = '进入',
                                     style = {'button_color':'#004080'}, 
                                     button_style = 'info',
                                     layout = widgets.Layout(width = '2.5cm'))
-    grid[19,14:16] = widgets.Button(description = '更改',
-                                    style = {'button_color':'#004080'}, 
-                                    button_style = 'info',
-                                    layout = widgets.Layout(width = '2.5cm'))
-    grid[19,21:23] = widgets.Button(description = '保存',
-                                    style = {'button_color':'#004080'}, 
-                                    button_style = 'info',
-                                    layout = widgets.Layout(width = '2.5cm'))
+    #跳转页面
+    def jumpToPage(b):
+        value = grid[19,9:11].value
+        if value == 0:
+            contentsPage(out,grid)
+        elif value == 1:
+            processPage(out,grid)
+        elif value == 2:
+            testPage(out,grid)
+    grid[19,17:18].on_click(jumpToPage)
+
+    #-------------------------------------#
+    
 
     #显示图片
     with open('./image/teacher.jpg', 'rb') as f:
@@ -143,30 +148,54 @@ def knowledgePage(out,grid):
         grid[6:12,1:6] = widgets.Image(value = teacher_image)
     f.close()
 
+    #--------------------------------------#
+
     #显示知识点内容
     with open('./doc/datapath.txt', 'r') as f1:
         datapath_txt = f1.read()
     f1.close()
-    datapath_accordion = widgets.Accordion(children=[widgets.Textarea(value=datapath_txt,disabled=True,layout=widgets.Layout(height='8cm',width='auto'))])
+    datapath_grid = widgets.GridspecLayout(10,5,width='auto',height='9.5cm')
+    datapath_grid[:9,:] = widgets.Textarea(value=datapath_txt,disabled=True,layout=widgets.Layout(height='8cm',width='auto'))
+    datapath_grid[9,1] = widgets.Button(description = '更改',
+                                        style = {'button_color':'#004080'}, 
+                                        button_style = 'info',
+                                        layout = widgets.Layout(width = '2.5cm'))
+    datapath_grid[9,3] = widgets.Button(description = '保存',
+                                        style = {'button_color':'#004080'}, 
+                                        button_style = 'info',
+                                        layout = widgets.Layout(width = '2.5cm'))
+    datapath_accordion = widgets.Accordion(children=[datapath_grid])
     datapath_accordion.set_title(0, '知识概要')
     datapath_accordion.selected_index = None
     
     with open('./doc/cache.txt', 'r') as f2:
         cache_txt = f2.read()
     f2.close()
-    
-    cache_accordion = widgets.Accordion(children=[widgets.Textarea(value=cache_txt,disabled=True,layout=widgets.Layout(height='8cm',width='auto')),
-                                                  widgets.GridspecLayout(10,4,width='auto',height='9.5cm'),   
-                                                  widgets.GridspecLayout(10,3,width='auto',height='9.5cm')])
+
+    cache_grid = widgets.GridspecLayout(10,5,width='auto',height='9.5cm')
+    cache_grid[:9,:] = widgets.Textarea(value=cache_txt,disabled=True,layout=widgets.Layout(height='8cm',width='auto'))
+    cache_grid[9,1] = widgets.Button(description = '更改',
+                                        style = {'button_color':'#004080'}, 
+                                        button_style = 'info',
+                                        layout = widgets.Layout(width = '2.5cm'))
+    cache_grid[9,3] = widgets.Button(description = '保存',
+                                        style = {'button_color':'#004080'}, 
+                                        button_style = 'info',
+                                        layout = widgets.Layout(width = '2.5cm'))
+    cache_accordion = widgets.Accordion(children=[cache_grid,widgets.GridspecLayout(10,4,width='auto',height='9.5cm')])
     cache_accordion.set_title(0, '知识概要')
     cache_accordion.set_title(1, '基础操作')
-    cache_accordion.set_title(2, '数据访问')
+    #cache_accordion.set_title(2, '数据访问')
     cache_accordion.selected_index = None
+
+    #--------------------------------------#
 
     #实现“基础操作”内容
     cache.knowledge_base(cache_accordion.children[1])
-    #实现“映射方式”内容
-    cache.knowledge_mapway(cache_accordion.children[2])
+    #实现“数据访问”内容
+    #cache.knowledge_mapway(cache_accordion.children[2])
+
+    #--------------------------------------#
     
     tab_title = ['数据通路', 'Cache']
     tab = widgets.Tab(layout = widgets.Layout(width = '18cm',height='11cm'))
@@ -175,39 +204,31 @@ def knowledgePage(out,grid):
         tab.set_title(i, tab_title[i])
     grid[1:18,8:17] = tab
 
+
     #更改、保存按钮实现
-    def update(b):
-        if grid[2:18,11:17].selected_index == 0:
-            grid[2:18,11:17].children[0].children[0].disabled = False
-        elif grid[2:18,11:17].selected_index == 1:
-            grid[2:18,11:17].children[1].children[0].disabled = False
-    grid[19,14:16].on_click(update)
+    def datapath_update(b):
+        datapath_grid[:9,:].disabled = False
+    datapath_grid[9,1].on_click(datapath_update)
 
-    def save(b):
-        if grid[2:18,11:17].selected_index == 0:
-            text = grid[2:18,11:17].children[0].children[0].value
-            with open('./doc/datapath.txt', 'w') as fd:
-                fd.write(text)
-            fd.close()
-            grid[2:18,11:17].children[0].children[0].disabled = True
-        elif grid[2:18,11:17].selected_index == 1:
-            text = grid[2:18,11:17].children[1].children[0].value
-            with open('./doc/cache.txt', 'w') as fc:
-                fc.write(text)
-            fc.close()
-            grid[2:18,11:17].children[1].children[0].disabled = True
-    grid[19,21:23].on_click(save)
+    def cache_update(b):
+        cache_grid[:9,:].disabled = False
+    cache_grid[9,1].on_click(cache_update)
 
-    #跳转页面
-    def jumpToPage(b):
-        value = grid[19,1:3].value
-        if value == 0:
-            contentsPage(out,grid)
-        elif value == 1:
-            processPage(out,grid)
-        elif value == 2:
-            testPage(out,grid)
-    grid[19,9:10].on_click(jumpToPage)
+    def datapath_save(b):
+        text = datapath_grid[:9,:].value
+        with open('./doc/datapath.txt', 'w') as fd:
+            fd.write(text)
+        fd.close()
+        datapath_grid[:9,:].disabled = True
+    datapath_grid[9,3].on_click(datapath_save)
+
+    def cache_save(b):
+        text = cache_grid[:9,:].value
+        with open('./doc/cache.txt', 'w') as fd:
+            fd.write(text)
+        fd.close()
+        cache_grid[:9,:].disabled = True
+    cache_grid[9,3].on_click(cache_save)
     
     return
 
@@ -227,12 +248,39 @@ def initProcess_Left(grid):
         display(leftCode_grid)
 
     # DataPath界面是一个Out, 里面是一个自定义Datapath类的组件
-    leftDataPath_out = widgets.Output(layout={'width':'16.8cm','height':'9.6cm'})
-    leftDatapath_widget = pfunction.Datapath()
+    leftDataPath_out = widgets.Output(layout={'width':'17.3cm','height':'11cm'})
+    datapath_grid = widgets.GridspecLayout(10,4,width = 'auto',height='11cm')
     with leftDataPath_out:
-        display(leftDatapath_widget)
-    widgets.link((grid[19,18:23], 'value'),(leftDatapath_widget, 'step'))
-    widgets.link((grid[19,18:23], 'max'),(leftDatapath_widget, 'max_step'))
+        display(datapath_grid)
+    datapath_widget = pfunction.Datapath()
+    datapath_grid[:9,:] = datapath_widget
+    datapath_grid[9,1] = widgets.Play(interval=1000,
+                                  value=0,
+                                  min=0,
+                                  max=0,
+                                  step=1,
+                                  disabled = True)
+    datapath_grid[9,2] = widgets.SelectionSlider(options=['0.25px','0.5px','1px','2px','4px'],
+                                             value = '1px',
+                                             continuous_update=True,
+                                             disabled = True,
+                                             layout = widgets.Layout(width = 'auto'))
+    
+    widgets.link((datapath_grid[9,1], 'value'),(datapath_widget, 'step'))
+    widgets.link((datapath_grid[9,1], 'max'),(datapath_widget, 'max_step'))
+
+    def slider_play(change):
+        if change['new'] == '0.25px':
+            datapath_grid[9,1].interval = 4000
+        elif change['new'] == '0.5px':
+            datapath_grid[9,1].interval = 2000
+        elif change['new'] == '1px':
+            datapath_grid[9,1].interval = 1000
+        elif change['new'] == '2px':
+            datapath_grid[9,1].interval = 500
+        elif change['new'] == '4px':
+            datapath_grid[9,1].interval = 250
+    datapath_grid[9,2].observe(slider_play,names = 'value')
 
     # Cache里面是一个Grid
     leftCache_accordion = widgets.Accordion([widgets.GridspecLayout(10,4,width = 'auto',height='9.5cm'),
@@ -250,7 +298,7 @@ def initProcess_Left(grid):
     grid[1:19,0:20] = leftab
 
     left = {'code':leftCode_grid,
-            'datapath':leftDatapath_widget,
+            'datapath':datapath_grid,
             'cache':leftCache_accordion}
     
     return [leftab,left]
@@ -278,7 +326,7 @@ def initProcess_Right(grid):
     code_rightab.set_title(0,'Information')
 
     #-------2) Datapth 右半部分--------#
-    datapath_rchildren = widgets.GridspecLayout(33,4,width='auto',height='auto')
+    datapath_rchildren = widgets.GridspecLayout(34,4,width='auto',height='auto')
     datapath_rchildren[0,0] = widgets.Button(description='Name',
                                              style = {'button_color':'#004080'}, 
                                              button_style = 'info',
@@ -309,6 +357,11 @@ def initProcess_Right(grid):
                 datapath_rchildren[i,2:4] = widgets.Button(description = "0x00000000",
                                                          disabled = True,
                                                          layout = widgets.Layout(width='auto',height='auto'))
+    datapath_rchildren[33,:2] = widgets.Button(description = '播放次数',disabled = False,
+                                                         style = {'button_color':'#004080'}, 
+                                                         button_style = 'info',
+                                                         layout = widgets.Layout(width='auto',height='auto'))
+    datapath_rchildren[33,2:] = widgets.Button(description = '',disabled = False,layout = widgets.Layout(width='auto',height='auto'))
             
     datapath_rightab.children = [datapath_rchildren]
     datapath_rightab.set_title('0','Register')
@@ -330,36 +383,13 @@ def processPage(out,grid):
     #-------1）界面周边布局------#
     grid = close_FrontPage(out,grid)
     grid[0,0:29].description = '过程演示'
-    grid[19,1:3] = widgets.Dropdown(options=[('目       录', 0), ('知识梳理', 1), ('巩固测试', 2)],
+    grid[19,9:11] = widgets.Dropdown(options=[('目       录', 0), ('知识梳理', 1), ('巩固测试', 2)],
                                     layout = widgets.Layout(width = '5cm'),
                                     description='跳转到： ')
-    grid[19,9:10] = widgets.Button(description = '进入',
+    grid[19,17:18] = widgets.Button(description = '进入',
                                     style = {'button_color':'#004080'}, 
                                     button_style = 'info',
                                     layout = widgets.Layout(width = '2.5cm'))
-    grid[19,18:23] = widgets.Play(interval=1000,
-                                  value=0,
-                                  min=0,
-                                  max=0,
-                                  step=1,
-                                  disabled = True)
-    grid[19,23:26] = widgets.SelectionSlider(options=['0.25px','0.5px','1px','2px','4px'],
-                                             value = '1px',
-                                             continuous_update=True,
-                                             disabled = True,
-                                             layout = widgets.Layout(width = '4cm'))
-    def slider_play(change):
-        if change['new'] == '0.25px':
-            grid[19,18:23].interval = 4000
-        elif change['new'] == '0.5px':
-            grid[19,18:23].interval = 2000
-        elif change['new'] == '1px':
-            grid[19,18:23].interval = 1000
-        elif change['new'] == '2px':
-            grid[19,18:23].interval = 500
-        elif change['new'] == '4px':
-            grid[19,18:23].interval = 250
-    grid[19,23:26].observe(slider_play,names = 'value')
 
     #---------2) 界面中央---------#
     left_list = initProcess_Left(grid)
@@ -369,14 +399,14 @@ def processPage(out,grid):
 
     #---------3) 跳转页面---------#
     def jumpToPage(b):
-        value = grid[19,1:3].value
+        value = grid[19,9:11].value
         if value == 0:
             contentsPage(out,grid)
         elif value == 1:
             knowledgePage(out,grid)
         elif value == 2:
             testPage(out,grid)
-    grid[19,9:10].on_click(jumpToPage)
+    grid[19,17:18].on_click(jumpToPage)
     
     return
 
