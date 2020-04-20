@@ -33,21 +33,21 @@ define('cache_acess', ["@jupyter-widgets/base",'d3'], function(widgets,d3) {
             
             this.jsonTexts = [{"x":145,"y":80,"text":"Cache"},  // cache  start
                               {"x":135,"y":102,"text":"Tag"}, 
-                              {"x":202,"y":102,"text":"ÐÐ/×éºÅ"},
-                              {"x":204,"y":117,"text":"0ÐÐ/×é"},  
-                              {"x":204,"y":132,"text":"1ÐÐ/×é"},   
-                              {"x":400,"y":30,"text":"Ö÷´æ´¢Æ÷"},    // Ö÷´æ start
-                              {"x":412,"y":52,"text":"0¿é"},
-                              {"x":408,"y":97,"text":"31¿é"},
-                              {"x":408,"y":112,"text":"32¿é"},
-                              {"x":408,"y":157,"text":"63¿é"},
-                              {"x":408,"y":172,"text":"64¿é"},
-                              {"x":32,"y":275,"text":"Ö÷´æµØÖ·"},    // Ö÷´æµØÖ·  start
-                              {"x":120,"y":267,"text":"Tag"},        // 12 ×é¡¢Ö±½Ó   hidden
-                              {"x":200,"y":267,"text":"CacheÐÐºÅ"},    // 13 Ö±½Ó hidden
-                              {"x":200,"y":267,"text":"Cache×éºÅ"},    // 14 ×é hidden
-                              {"x":150,"y":267,"text":"±ê¼Ç£¨Tag)"},   // 15 È«ÏàÁª   hidden
-                              {"x":300,"y":267,"text":"¿éÄÚµØÖ·"},   // Ö÷´æµØÖ· end
+                              {"x":202,"y":102,"text":"è¡Œ/ç»„å·"},
+                              {"x":204,"y":117,"text":"0è¡Œ/ç»„"},  
+                              {"x":204,"y":132,"text":"1è¡Œ/ç»„"},   
+                              {"x":400,"y":30,"text":"ä¸»å­˜å‚¨å™¨"},    // ä¸»å­˜ start
+                              {"x":412,"y":52,"text":"0å—"},
+                              {"x":408,"y":97,"text":"31å—"},
+                              {"x":408,"y":112,"text":"32å—"},
+                              {"x":408,"y":157,"text":"63å—"},
+                              {"x":408,"y":172,"text":"64å—"},
+                              {"x":32,"y":275,"text":"ä¸»å­˜åœ°å€"},    // ä¸»å­˜åœ°å€  start
+                              {"x":120,"y":267,"text":"Tag"},        // 12 ç»„ã€ç›´æŽ¥   hidden
+                              {"x":200,"y":267,"text":"Cacheè¡Œå·"},    // 13 ç›´æŽ¥ hidden
+                              {"x":200,"y":267,"text":"Cacheç»„å·"},    // 14 ç»„ hidden
+                              {"x":150,"y":267,"text":"æ ‡è®°ï¼ˆTag)"},   // 15 å…¨ç›¸è”   hidden
+                              {"x":300,"y":267,"text":"å—å†…åœ°å€"},   // ä¸»å­˜åœ°å€ end
                              ];
             this.texts = this.svgContainer.selectAll("text")
                 .data(this.jsonTexts)
@@ -63,36 +63,36 @@ define('cache_acess', ["@jupyter-widgets/base",'d3'], function(widgets,d3) {
                 .text(function(d){return d.text;});
             
             //  
-            this.cache_row = this.svgContainer.append("text")    //cacheÐÐ/×éÊý
+            this.cache_row = this.svgContainer.append("text")    //cacheè¡Œ/ç»„æ•°
                 .attr("x",200)
                 .attr("y",177)
                 .attr("font-size",12)
-                .text("×ÜÐÐÊý-1")
-            this.cache_group = this.svgContainer.append("text")    //cacheÐÐ/×éÊý
+                .text("æ€»è¡Œæ•°-1")
+            this.cache_group = this.svgContainer.append("text")    //cacheè¡Œ/ç»„æ•°
                 .attr("x",200)
                 .attr("y",177)
                 .attr("font-size",12)
                 .attr("visibility","hidden")
-                .text("×Ü×éÊý-1")
-            this.block_count = this.svgContainer.append("text")  //Ö÷´æ¿éÊý
+                .text("æ€»ç»„æ•°-1")
+            this.block_count = this.svgContainer.append("text")  //ä¸»å­˜å—æ•°
                 .attr("x",402)
                 .attr("y",247)
                 .attr("font-size",12)
-                .text("×Ü¿éÊý-1")
-            this.block_digit = this.svgContainer.append("text")   //¿éÎ»Êý
+                .text("æ€»å—æ•°-1")
+            this.block_digit = this.svgContainer.append("text")   //å—ä½æ•°
                 .attr("x",315)
                 .attr("y",247)
                 .attr("font-size",12)
                 .text("")
             
-            //   ÏÔÊ¾Ö÷´æµØÖ·ÉÏ·½µÄ¸÷¸öÎ»Êý
+            //   æ˜¾ç¤ºä¸»å­˜åœ°å€ä¸Šæ–¹çš„å„ä¸ªä½æ•°
             this.group_tag = this.svgContainer.append("text")      //  weishu
                 .attr("x",120)
                 .attr("y",247)
                 .attr("font-size",12)
                 .attr("visibility","hidden")
                 .text("group_tag")
-            this.group_cachedigit = this.svgContainer.append("text")    //cache×éºÅÎ»Êý
+            this.group_cachedigit = this.svgContainer.append("text")    //cacheç»„å·ä½æ•°
                 .attr("x",220)
                 .attr("y",247)
                 .attr("font-size",12)
@@ -104,7 +104,7 @@ define('cache_acess', ["@jupyter-widgets/base",'d3'], function(widgets,d3) {
                 .attr("font-size",12)
                 .attr("visibility","hidden")
                 .text("direct_tag")
-            this.direct_cachedigit = this.svgContainer.append("text")  //cacheÐÐºÅÎ»Êý
+            this.direct_cachedigit = this.svgContainer.append("text")  //cacheè¡Œå·ä½æ•°
                 .attr("x",220)
                 .attr("y",247)
                 .attr("font-size",12)
@@ -117,7 +117,7 @@ define('cache_acess', ["@jupyter-widgets/base",'d3'], function(widgets,d3) {
                 .attr("visibility","hidden")
                 .text("full_tag")
             
-            //      Ö÷´æµØÖ·ÀïÃæ¸÷¸ö  ¶þ½øÖÆµØÖ·ÊýÖµ
+            //      ä¸»å­˜åœ°å€é‡Œé¢å„ä¸ª  äºŒè¿›åˆ¶åœ°å€æ•°å€¼
             //  element[0]
             this.address_element1 = this.svgContainer.append("text")
                 .attr("x",100)
@@ -137,7 +137,7 @@ define('cache_acess', ["@jupyter-widgets/base",'d3'], function(widgets,d3) {
                 .attr("font-size",12)
                 .text("")
             
-            //    hidden  update
+            //     hidden  update
             this.tag0 = this.svgContainer.append("text")
                 .attr("x",100)
                 .attr("y",117)
@@ -194,29 +194,29 @@ define('cache_acess', ["@jupyter-widgets/base",'d3'], function(widgets,d3) {
                 .attr("visibility","hidden")
                 .text("memory64_end")
             
-            this.jsonLines = [{"x1":95,"y1":105,"x2":260,"y2":105},    // 0 CacheºáÏß  start
+            this.jsonLines = [{"x1":95,"y1":105,"x2":260,"y2":105},    // 0 Cacheæ¨ªçº¿  start
                              {"x1":95,"y1":120,"x2":260,"y2":120},
                              {"x1":95,"y1":135,"x2":260,"y2":135}, 
-                             {"x1":95,"y1":165,"x2":260,"y2":165},   //  CacheºáÏß  end
-                             {"x1":193,"y1":90,"x2":193,"y2":180},    //  CacheÊúÏß   
-                             {"x1":144,"y1":140,"x2":144,"y2":160},   // 5 cache ÐéÏß 3,3  
-                             {"x1":215,"y1":140,"x2":215,"y2":160},   // 6 cache ÐéÏß 3,3  
+                             {"x1":95,"y1":165,"x2":260,"y2":165},   //  Cacheæ¨ªçº¿  end
+                             {"x1":193,"y1":90,"x2":193,"y2":180},    //  Cacheç«–çº¿   
+                             {"x1":144,"y1":140,"x2":144,"y2":160},   // 5 cache è™šçº¿ 3,3  
+                             {"x1":215,"y1":140,"x2":215,"y2":160},   // 6 cache è™šçº¿ 3,3  
                            //------------------------------------// 
-                             {"x1":392,"y1":55,"x2":457,"y2":55},     //  7 Ö÷´æ ºáÏß  start
+                             {"x1":392,"y1":55,"x2":457,"y2":55},     //  7 ä¸»å­˜ æ¨ªçº¿  start
                              {"x1":392,"y1":85,"x2":457,"y2":85}, 
                              {"x1":392,"y1":100,"x2":457,"y2":100},
                              {"x1":392,"y1":115,"x2":457,"y2":115},
                              {"x1":392,"y1":145,"x2":457,"y2":145},
                              {"x1":392,"y1":160,"x2":457,"y2":160},
                              {"x1":392,"y1":175,"x2":457,"y2":175}, 
-                             {"x1":392,"y1":235,"x2":457,"y2":235},    //  Ö÷´æ ºáÏß  end
+                             {"x1":392,"y1":235,"x2":457,"y2":235},    //  ä¸»å­˜ æ¨ªçº¿  end
                              {"x1":422,"y1":57,"x2":422,"y2":83},   //  15  3,3 
                              {"x1":422,"y1":117,"x2":422,"y2":143},   //  16  3,3
                              {"x1":422,"y1":180,"x2":422,"y2":230},   //  17  3,3 
                             //------------------------------------//   
-                             {"x1":95,"y1":270,"x2":365,"y2":270},   // Ö÷´æµØÖ· ºáÏß
-                             {"x1":185,"y1":255,"x2":185,"y2":285},   // 19 µØÖ·¿ò µÚ¶þÌõÏß    hidden  ×é¡¢Ö±½Ó 
-                             {"x1":275,"y1":255,"x2":275,"y2":285},   // µØÖ·¿ò ×îºóÒ»ÌõÏß 
+                             {"x1":95,"y1":270,"x2":365,"y2":270},   // ä¸»å­˜åœ°å€ æ¨ªçº¿
+                             {"x1":185,"y1":255,"x2":185,"y2":285},   // 19 åœ°å€æ¡† ç¬¬äºŒæ¡çº¿    hidden  ç»„ã€ç›´æŽ¥ 
+                             {"x1":275,"y1":255,"x2":275,"y2":285},   // åœ°å€æ¡† æœ€åŽä¸€æ¡çº¿ 
                              ];
             this.lines = this.svgContainer.selectAll("line")
                 .data(this.jsonLines)
@@ -233,38 +233,38 @@ define('cache_acess', ["@jupyter-widgets/base",'d3'], function(widgets,d3) {
                     if(i == 5 || i == 6 || (i >= 15 && i <= 17)){return "3,3";}
                 });
             
-            //  stepÀïÓÃ  
-            //detail£º xx¡¾address_element1_10¡¿¿éÈºxx¡¾address_element2_10¡¿¿éxx¡¾address_element3_10¡¿µ¥Ôª
-            this.address_element1_10 = 0;             //Ö÷´æµØÖ·ÖÐelement1 ¶ÔÓ¦Ê®½øÖÆÊý
-            this.address_element2_10 = 0;             //Ö÷´æµØÖ·ÖÐelement2 ¶ÔÓ¦Ê®½øÖÆÊý
-            this.address_element3_10 = 0;             //Ö÷´æµØÖ·ÖÐelement3 ¶ÔÓ¦Ê®½øÖÆÊý
-            this.memory_block_10 = 0;                 //  µØÖ·¶ÔÓ¦µÄÊµ¼ÊÖ÷´æ¿é = ¿é/×éÈººÅ * cacheÐÐÊý/×éÊý + address_element2_10
+            //  stepé‡Œç”¨  
+            //detailï¼š xxã€address_element1_10ã€‘å—ç¾¤xxã€address_element2_10ã€‘å—xxã€address_element3_10ã€‘å•å…ƒ
+            this.address_element1_10 = 0;             //ä¸»å­˜åœ°å€ä¸­element1 å¯¹åº”åè¿›åˆ¶æ•°
+            this.address_element2_10 = 0;             //ä¸»å­˜åœ°å€ä¸­element2 å¯¹åº”åè¿›åˆ¶æ•°
+            this.address_element3_10 = 0;             //ä¸»å­˜åœ°å€ä¸­element3 å¯¹åº”åè¿›åˆ¶æ•°
+            this.memory_block_10 = 0;                 //  åœ°å€å¯¹åº”çš„å®žé™…ä¸»å­˜å— = å—/ç»„ç¾¤å· * cacheè¡Œæ•°/ç»„æ•° + address_element2_10
             this.str_tag = "";
             
             this.step = this.model.get('step');
             this.max_step = this.model.get('max_step');
             this.map_way = this.model.get('map_way');
-            this.cache_RowCount = this.model.get('cache_RowCount');  //cacheÐÐÊý
-            this.cache_GroupNum = this.model.get('cache_GroupNum');        //cache×éÊý
-            this.memory_BlockCount = this.model.get('memory_BlockCount');   //Ö÷´æ¿éÊý
-            this.block_count.text((parseInt(this.memory_BlockCount) - 1) + "¿é");
-            this.block_digits = this.model.get('block_digits');             //¿éÄÚµØÖ·Î»Êý
-            this.block_digit.text(this.block_digits + "Î»");
-            this.cache_BlockNumDigits = this.model.get('cache_BlockNumDigits');      //cacheÐÐºÅÎ»Êý
-            this.direct_cachedigit.text(this.cache_BlockNumDigits + "Î»")
-            this.cache_GroupNumDigits = this.model.get('cache_GroupNumDigits');      //cache×éºÅÎ»Êý
-            this.group_cachedigit.text(this.cache_GroupNumDigits + "Î»");
-            this.cache_GroupNum = this.model.get('cache_GroupNum');        //cache×éÊý
-            this.direct_tag.text(this.model.get('direct_tag_digits') + "Î»");
-            this.group_tag.text(this.model.get('group_tag_digits') + "Î»");
-            this.full_tag.text(this.model.get('full_tag_digits') + "Î»");
-            this.address = this.model.get('address');                //µØÖ·
+            this.cache_RowCount = this.model.get('cache_RowCount');  //cacheè¡Œæ•°
+            this.cache_GroupNum = this.model.get('cache_GroupNum');        //cacheç»„æ•°
+            this.memory_BlockCount = this.model.get('memory_BlockCount');   //ä¸»å­˜å—æ•°
+            this.block_count.text((parseInt(this.memory_BlockCount) - 1) + "å—");
+            this.block_digits = this.model.get('block_digits');             //å—å†…åœ°å€ä½æ•°
+            this.block_digit.text(this.block_digits + "ä½");
+            this.cache_BlockNumDigits = this.model.get('cache_BlockNumDigits');      //cacheè¡Œå·ä½æ•°
+            this.direct_cachedigit.text(this.cache_BlockNumDigits + "ä½")
+            this.cache_GroupNumDigits = this.model.get('cache_GroupNumDigits');      //cacheç»„å·ä½æ•°
+            this.group_cachedigit.text(this.cache_GroupNumDigits + "ä½");
+            this.cache_GroupNum = this.model.get('cache_GroupNum');        //cacheç»„æ•°
+            this.direct_tag.text(this.model.get('direct_tag_digits') + "ä½");
+            this.group_tag.text(this.model.get('group_tag_digits') + "ä½");
+            this.full_tag.text(this.model.get('full_tag_digits') + "ä½");
+            this.address = this.model.get('address');                //åœ°å€
             
             // Python -> JavaScript update
             this.model.on('change:step', this.step_changed, this);
             this.model.on('change:max_step', this.max_step_changed, this);
             this.model.on('change:map_way', this.map_way_changed, this);
-            this.model.on('change:cache_RowCount', this.cache_RowCount_changed, this);  //ÐÐÊý
+            this.model.on('change:cache_RowCount', this.cache_RowCount_changed, this);  //è¡Œæ•°
             this.model.on('change:memory_BlockCount', this.memory_BlockCount_changed, this);
             this.model.on('change:block_digits', this.block_digits_changed, this);
             this.model.on('change:direct_tag_digits', this.direct_tag_digits_changed, this);
@@ -272,12 +272,12 @@ define('cache_acess', ["@jupyter-widgets/base",'d3'], function(widgets,d3) {
             this.model.on('change:full_tag_digits', this.full_tag_digits_changed, this);
             this.model.on('change:cache_BlockNumDigits', this.cache_BlockNumDigits_changed, this);
             this.model.on('change:cache_GroupNumDigits', this.cache_GroupNumDigits_changed, this);
-            this.model.on('change:cache_GroupNum', this.cache_GroupNum_changed, this);  //×éÊý
+            this.model.on('change:cache_GroupNum', this.cache_GroupNum_changed, this);  //ç»„æ•°
             this.model.on('change:address', this.address_changed, this);
         },
          address_changed: function(){
              this.address = this.model.get('address');
-             if(this.map_way == 'Ö±½ÓÓ³Éä'){
+             if(this.map_way == 'ç›´æŽ¥æ˜ å°„'){
                  var tag = parseInt(this.model.get('direct_tag_digits'));
                  var row_digit = parseInt(this.cache_BlockNumDigits);
                  
@@ -287,14 +287,14 @@ define('cache_acess', ["@jupyter-widgets/base",'d3'], function(widgets,d3) {
                  
                  this.str_tag = this.address.substring(0,tag);
                  
-                 //  ¼ÆËã¶ÔÓ¦µÄÊ®½øÖÆÊý
+                 //  è®¡ç®—å¯¹åº”çš„åè¿›åˆ¶æ•°
                  this.address_element1_10 = parseInt(this.address.substring(0,tag),2);
                  this.address_element2_10 = parseInt(this.address.substring(tag,tag + row_digit),2);
                  this.address_element3_10 = parseInt(this.address.substring(tag + row_digit),2);  
                  
                  this.memory_block_10 =  this.address_element1_10 * parseInt(this.cache_RowCount) + this.address_element2_10;
              }
-             else if(this.map_way == 'È«ÏàÁªÓ³Éä'){
+             else if(this.map_way == 'å…¨ç›¸è”æ˜ å°„'){
                  var tag = parseInt(this.model.get('full_tag_digits'));
                  this.address_element1.text(this.address.substring(0,tag));
                  this.address_element3.text(this.address.substring(tag));
@@ -304,9 +304,9 @@ define('cache_acess', ["@jupyter-widgets/base",'d3'], function(widgets,d3) {
                  this.address_element1_10 = parseInt(this.address.substring(0,tag),2);
                  this.address_element3_10 = parseInt(this.address.substring(tag),2); 
                  
-                 this.memory_block_10 = this.address_element1_10;       //  Ö÷´æ¿éºÅ = tagÖµ
+                 this.memory_block_10 = this.address_element1_10;       //  ä¸»å­˜å—å· = tagå€¼
              }
-             else if(this.map_way == '×éÏàÁªÓ³Éä'){
+             else if(this.map_way == 'ç»„ç›¸è”æ˜ å°„'){
                 var tag = parseInt(this.model.get('group_tag_digits'));
                 var group_digit = parseInt(this.cache_GroupNumDigits);
                 this.address_element1.text(this.address.substring(0,tag));
@@ -319,44 +319,44 @@ define('cache_acess', ["@jupyter-widgets/base",'d3'], function(widgets,d3) {
                 this.str_tag = this.address.substring(0,tag); 
              }
          },
-         cache_RowCount_changed: function(){     //cacheÐÐÊý
+         cache_RowCount_changed: function(){     //cacheè¡Œæ•°
              this.cache_RowCount = this.model.get('cache_RowCount');
-             this.cache_row.text((parseInt(this.cache_RowCount) - 1) + "ÐÐ/×é");
+             this.cache_row.text((parseInt(this.cache_RowCount) - 1) + "è¡Œ/ç»„");
          },
          memory_BlockCount_changed: function(){
-             this.memory_BlockCount = this.model.get('memory_BlockCount');   //Ö÷´æ¿éÊý
-             this.block_count.text((parseInt(this.memory_BlockCount) - 1) + "¿é");
+             this.memory_BlockCount = this.model.get('memory_BlockCount');   //ä¸»å­˜å—æ•°
+             this.block_count.text((parseInt(this.memory_BlockCount) - 1) + "å—");
          },
          block_digits_changed: function(){
-             this.block_digits = this.model.get('block_digits');             //¿éÄÚµØÖ·Î»Êý
-             this.block_digit.text(this.block_digits + "Î»");
+             this.block_digits = this.model.get('block_digits');             //å—å†…åœ°å€ä½æ•°
+             this.block_digit.text(this.block_digits + "ä½");
          },
          direct_tag_digits_changed: function(){
-             this.direct_tag.text(this.model.get('direct_tag_digits') + "Î»");
+             this.direct_tag.text(this.model.get('direct_tag_digits') + "ä½");
          },
          group_tag_digits_changed: function(){
-             this.group_tag.text(this.model.get('group_tag_digits') + "Î»");
+             this.group_tag.text(this.model.get('group_tag_digits') + "ä½");
          },
          full_tag_digits_changed: function(){
-             this.full_tag.text(this.model.get('full_tag_digits') + "Î»");
+             this.full_tag.text(this.model.get('full_tag_digits') + "ä½");
          },
          cache_BlockNumDigits_changed: function(){
-             this.cache_BlockNumDigits = this.model.get('cache_BlockNumDigits');      //cacheÐÐºÅÎ»Êý
-             this.direct_cachedigit.text(this.cache_BlockNumDigits+ "Î»");
+             this.cache_BlockNumDigits = this.model.get('cache_BlockNumDigits');      //cacheè¡Œå·ä½æ•°
+             this.direct_cachedigit.text(this.cache_BlockNumDigits+ "ä½");
          },
          cache_GroupNumDigits_changed: function(){
-             this.cache_GroupNumDigits = this.model.get('cache_GroupNumDigits');      //cache×éºÅÎ»Êý
-             this.group_cachedigit.text(this.cache_GroupNumDigits + "Î»")
+             this.cache_GroupNumDigits = this.model.get('cache_GroupNumDigits');      //cacheç»„å·ä½æ•°
+             this.group_cachedigit.text(this.cache_GroupNumDigits + "ä½")
          },
          cache_GroupNum_changed: function(){
-             this.cache_GroupNum = parseInt(this.model.get('cache_GroupNum'));        //cache×éÊý
-             this.cache_group.text((parseInt(this.cache_GroupNum) - 1) + "ÐÐ/×é");
+             this.cache_GroupNum = parseInt(this.model.get('cache_GroupNum'));        //cacheç»„æ•°
+             this.cache_group.text((parseInt(this.cache_GroupNum) - 1) + "è¡Œ/ç»„");
          },
          step_changed: function(){
             this.step = this.model.get('step');
             switch(this.step){
                 case 1:
-                    if(this.map_way == "Ö±½ÓÓ³Éä" || this.map_way == "×éÏàÁªÓ³Éä"){
+                    if(this.map_way == "ç›´æŽ¥æ˜ å°„" || this.map_way == "ç»„ç›¸è”æ˜ å°„"){
                         this.address_element2.style("fill","red");
                         if(this.address_element2_10 == 0){
                             this.texts.style("fill",function(d,i){
@@ -374,11 +374,11 @@ define('cache_acess', ["@jupyter-widgets/base",'d3'], function(widgets,d3) {
                         }
                         else{
                             this.xrow.attr("visibility","visible")
-                                .text(this.address_element2_10 + "ÐÐ/×é")
+                                .text(this.address_element2_10 + "è¡Œ/ç»„")
                                 .style("fill","red");
                         }
                     }
-                    else if(this.map_way == "È«ÏàÁªÓ³Éä"){
+                    else if(this.map_way == "å…¨ç›¸è”æ˜ å°„"){
                         this.address_element1.style("fill","red");
                         if(this.memory_block_10 == 0){
                             this.texts.style("fill",function(d,i){
@@ -387,7 +387,7 @@ define('cache_acess', ["@jupyter-widgets/base",'d3'], function(widgets,d3) {
                         }
                         else if(this.memory_block_10 > 0 && this.memory_block_10 < 31){
                             this.memory0_31.style("fill","red")
-                                .text(this.memory_block_10 + "¿é")
+                                .text(this.memory_block_10 + "å—")
                                 .attr("visibility","visible");
                         }
                         else if(this.memory_block_10 == 31){
@@ -402,7 +402,7 @@ define('cache_acess', ["@jupyter-widgets/base",'d3'], function(widgets,d3) {
                         }
                         else if(this.memory_block_10 > 32 && this.memory_block_10 < 63){
                             this.memory32_63.style("fill","red")
-                                .text(this.memory_block_10 + "¿é")
+                                .text(this.memory_block_10 + "å—")
                                 .attr("visibility","visible")
                         }
                         else if(this.memory_block_10 == 63){
@@ -417,7 +417,7 @@ define('cache_acess', ["@jupyter-widgets/base",'d3'], function(widgets,d3) {
                         }
                         else if(this.memory_block_10 > 64 && this.memory_block_10 < parseInt(this.memory_BlockCount) - 1){
                             this.memory64_end.style("fill","red")
-                                .text(this.memory_block_10 + "¿é")
+                                .text(this.memory_block_10 + "å—")
                                 .attr("visibility","visible")
                         }
                         else{
@@ -426,7 +426,7 @@ define('cache_acess', ["@jupyter-widgets/base",'d3'], function(widgets,d3) {
                     }
                     break;
                 case 2:   
-                    if(this.map_way == "Ö±½ÓÓ³Éä" || this.map_way == "×éÏàÁªÓ³Éä"){
+                    if(this.map_way == "ç›´æŽ¥æ˜ å°„" || this.map_way == "ç»„ç›¸è”æ˜ å°„"){
                         this.address_element1.style("fill","red");
                         if(this.memory_block_10 == 0){
                             this.texts.style("fill",function(d,i){
@@ -435,7 +435,7 @@ define('cache_acess', ["@jupyter-widgets/base",'d3'], function(widgets,d3) {
                         }
                         else if(this.memory_block_10 > 0 && this.memory_block_10 < 31){
                             this.memory0_31.style("fill","red")
-                                .text(this.memory_block_10 + "¿é")
+                                .text(this.memory_block_10 + "å—")
                                 .attr("visibility","visible");
                         }
                         else if(this.memory_block_10 == 31){
@@ -450,7 +450,7 @@ define('cache_acess', ["@jupyter-widgets/base",'d3'], function(widgets,d3) {
                         }
                         else if(this.memory_block_10 > 32 && this.memory_block_10 < 63){
                             this.memory32_63.style("fill","red")
-                                .text(this.memory_block_10 + "¿é")
+                                .text(this.memory_block_10 + "å—")
                                 .attr("visibility","visible")
                         }
                         else if(this.memory_block_10 == 63){
@@ -465,21 +465,21 @@ define('cache_acess', ["@jupyter-widgets/base",'d3'], function(widgets,d3) {
                         }
                         else if(this.memory_block_10 > 64 && this.memory_block_10 < parseInt(this.memory_BlockCount) - 1){
                             this.memory64_end.style("fill","red")
-                                .text(this.memory_block_10 + "¿é")
+                                .text(this.memory_block_10 + "å—")
                                 .attr("visibility","visible")
                         }
                         else{
                             this.block_count.style("fill","red");
                         }
                     }
-                    else if(this.map_way == "È«ÏàÁªÓ³Éä"){
+                    else if(this.map_way == "å…¨ç›¸è”æ˜ å°„"){
                         this.tagx.attr("visibility","visible")
                                 .text(this.str_tag)
                                 .style("fill","red")
                     }
                     break;
                 case 3:
-                    if(this.map_way == "Ö±½ÓÓ³Éä" || this.map_way == "×éÏàÁªÓ³Éä"){
+                    if(this.map_way == "ç›´æŽ¥æ˜ å°„" || this.map_way == "ç»„ç›¸è”æ˜ å°„"){
                         if(this.address_element2_10 == 0){
                             this.tag0.attr("visibility","visible")
                                 .text(this.str_tag)
@@ -502,21 +502,21 @@ define('cache_acess', ["@jupyter-widgets/base",'d3'], function(widgets,d3) {
                         }
                     }
                     else{
-                        this.detail.text("·ÃÎÊ£º" + this.address_element1_10 + "¿é" + this.address_element3_10 + "µ¥Ôª");
+                        this.detail.text("è®¿é—®ï¼š" + this.address_element1_10 + "å—" + this.address_element3_10 + "å•å…ƒ");
                         this.detail.attr("visibility","visible")
                             .style("fill","red");
                     }
                     break;
                 case 4:
-                    if(this.map_way == 'Ö±½ÓÓ³Éä'){
+                    if(this.map_way == 'ç›´æŽ¥æ˜ å°„'){
                         this.detail.attr("visibility","visible")
                              .style("fill","red");
-                        this.detail.text("·ÃÎÊ£º" + this.address_element1_10 + "¿éÈº" + this.address_element2_10 + "¿é" + this.address_element3_10 + "µ¥Ôª")
+                        this.detail.text("è®¿é—®ï¼š" + this.address_element1_10 + "å—ç¾¤" + this.address_element2_10 + "å—" + this.address_element3_10 + "å•å…ƒ")
                     }
-                    else if(this.map_way == '×éÏàÁªÓ³Éä'){
+                    else if(this.map_way == 'ç»„ç›¸è”æ˜ å°„'){
                         this.detail.attr("visibility","visible")
                              .style("fill","red");
-                        this.detail.text("·ÃÎÊ£º" + this.address_element1_10 + "×éÈº" + this.address_element2_10 + "¿é" + this.address_element3_10 + "µ¥Ôª")
+                        this.detail.text("è®¿é—®ï¼š" + this.address_element1_10 + "ç»„ç¾¤" + this.address_element2_10 + "å—" + this.address_element3_10 + "å•å…ƒ")
                     }
                     else{
                         this.svgContainer.selectAll("text").style("fill","black");
@@ -532,7 +532,7 @@ define('cache_acess', ["@jupyter-widgets/base",'d3'], function(widgets,d3) {
                     }
                     break;
                 default:
-                    if(this.map_way == "Ö±½ÓÓ³Éä" || this.map_way == "×éÏàÁªÓ³Éä"){
+                    if(this.map_way == "ç›´æŽ¥æ˜ å°„" || this.map_way == "ç»„ç›¸è”æ˜ å°„"){
                         this.svgContainer.selectAll("text").style("fill","black");
                         this.detail.attr("visibility","hidden");
                         this.tag0.attr("visibility","hidden");
@@ -582,7 +582,7 @@ define('cache_acess', ["@jupyter-widgets/base",'d3'], function(widgets,d3) {
                 this.cache_group.attr("visibility","hidden");
                 this.cache_row.attr("visibility","visible");
             }
-            else if(this.map_way == "Ö±½ÓÓ³Éä"){
+            else if(this.map_way == "ç›´æŽ¥æ˜ å°„"){
                 this.texts.attr("visibility",function(d,i){
                     if(i >= 14 && i <= 15){return "hidden";}
                     else{return "visible";}
@@ -613,7 +613,7 @@ define('cache_acess', ["@jupyter-widgets/base",'d3'], function(widgets,d3) {
                 this.address_element2_10 = parseInt(this.address.substring(tag,tag + row_digit),2);
                 this.address_element3_10 = parseInt(this.address.substring(tag + row_digit),2);
             }
-            else if(this.map_way == "È«ÏàÁªÓ³Éä"){
+            else if(this.map_way == "å…¨ç›¸è”æ˜ å°„"){
                 this.texts.attr("visibility",function(d,i){
                     if(i >= 12 && i <= 14){return "hidden";}
                     else{return "visible";}
@@ -646,7 +646,7 @@ define('cache_acess', ["@jupyter-widgets/base",'d3'], function(widgets,d3) {
                 this.address_element1_10 = parseInt(this.address.substring(0,tag),2);
                 this.address_element3_10 = parseInt(this.address.substring(tag),2);
             }
-            else if(this.map_way == "×éÏàÁªÓ³Éä"){
+            else if(this.map_way == "ç»„ç›¸è”æ˜ å°„"){
                 this.texts.attr("visibility",function(d,i){
                     if(i == 13 || i == 15){return "hidden";}
                     else{return "visible";}
