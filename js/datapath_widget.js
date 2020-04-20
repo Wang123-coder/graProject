@@ -1,4 +1,4 @@
-//%%javascript
+//%%javascript 
 require.undef('datapath_widget');
 
 define('datapath_widget', ["@jupyter-widgets/base",'d3'], function(widgets,d3) {
@@ -11,8 +11,8 @@ define('datapath_widget', ["@jupyter-widgets/base",'d3'], function(widgets,d3) {
                                     .attr("width",'16.5cm')
                                     .attr("height",'9.3cm')
                                     .style("border","1px solid black");
-            //-------------------------  1. »ù±¾ÔªËØÉú³É  ---------------------------------//
-            //¾ØĞÎ
+            //-------------------------  1. åŸºæœ¬å…ƒç´ ç”Ÿæˆ  ---------------------------------//
+            //çŸ©å½¢
             this.jsonRects = [{"rect_x":0,"rect_y":0,"rect_w":'16.5cm',"rect_h":'9.3cm'},
                     {"rect_x":38.595,"rect_y":146.563,"rect_w":25.58,"rect_h":87.5},
                     {"rect_x":103.75,"rect_y":155.3125,"rect_w":33.2,"rect_h":65.625},
@@ -41,7 +41,7 @@ define('datapath_widget', ["@jupyter-widgets/base",'d3'], function(widgets,d3) {
                         })
                         .style("stroke-width",2);
             
-            //¶à±ßĞÎ 
+            //å¤šè¾¹å½¢ 
             this.jsonPolygons = [{"polygon_points":"103.75,117.5 112,107.46875 103.75,95.625 103.75,73.75 136.95,91.25 136.95,124.0625 103.75,139.375"},
                       {"polygon_points":"373.5,203.4375 383,194.6875 373.5,179.375 373.5,153.125 406.7,175 406.7,214.375 373.5,234.0625"}];
             this.polygons = this.svgContainer.selectAll("polygon")
@@ -53,7 +53,7 @@ define('datapath_widget', ["@jupyter-widgets/base",'d3'], function(widgets,d3) {
                 .style("stroke","black")
                 .style("stroke-width",2);
             
-            //ÍÖÔ²
+            //æ¤­åœ†
             this.jsonEllipses = [{"ellipse_cx":273.75,"ellipse_cy":275,"ellipse_rx":16.6,"ellipse_ry":24.0625},
                       {"ellipse_cx":350.675,"ellipse_cy":168.4375,"ellipse_rx":8.3,"ellipse_ry":19.6875},
                       {"ellipse_cx":350.675,"ellipse_cy":214.375,"ellipse_rx":8.3,"ellipse_ry":19.6875},
@@ -71,7 +71,7 @@ define('datapath_widget', ["@jupyter-widgets/base",'d3'], function(widgets,d3) {
                 .style("stroke","black")
                 .style("stroke-width",2);
             
-            // »­ÕÛÏß
+            // ç”»æŠ˜çº¿
             this.jsonPolylines = [{"polyline_points":"497.1,87.5 520,87.5 520,46.875 18.675,46.875 18.675,185.9375 38.595,185.9375"},
                       {"polyline_points":"64.25,185.9375 102.6,185.9375"},
                       {"polyline_points":"73.55,186.125 73.55,91.875 103.75,91.875"},
@@ -111,7 +111,7 @@ define('datapath_widget', ["@jupyter-widgets/base",'d3'], function(widgets,d3) {
                 .style("stroke","black")
                 .style("stroke-width",2);
             
-            // »­Ïß
+            // ç”»çº¿
             this.jsonLines = [{"x1":190,"y1":10,"x2":190,"y2":340},
                          {"x1":315,"y1":10,"x2":315,"y2":340},
                          {"x1":460,"y1":10,"x2":460,"y2":340},
@@ -128,7 +128,7 @@ define('datapath_widget', ["@jupyter-widgets/base",'d3'], function(widgets,d3) {
                 .style("stroke-width",1)
                 .style("stroke-dasharray","5,5");
 
-            // »­Èı½ÇĞÎ£ºÓÃpath
+            // ç”»ä¸‰è§’å½¢ï¼šç”¨path
             this.jsonPaths = [{"d":"M 34 181 L 39 186 L 34 191 Z"},
                          {"d":"M 98 181 L 103 186 L 98 191 Z"},
                          {"d":"M 98 87 L 103 92 L 98 97 Z"},
@@ -160,7 +160,7 @@ define('datapath_widget', ["@jupyter-widgets/base",'d3'], function(widgets,d3) {
                 .append("path")
                 .attr("d",function(d){return d.d;})
         
-            // ÎÄ×Ö
+            // æ–‡å­—
             this.jsonTexts = [{"x":43,"y":192,"text":"PC"},
                          {"x":105,"y":192,"text":"Mem"},
                          {"x":112,"y":110,"text":"Add"},
@@ -182,7 +182,7 @@ define('datapath_widget', ["@jupyter-widgets/base",'d3'], function(widgets,d3) {
                          {"x":345,"y":209,"text":"M"},
                          {"x":346,"y":219,"text":"U"},
                          {"x":347,"y":229,"text":"X"},  //20
-                         {"x":373,"y":130,"text":"Zero£¿"},
+                         {"x":373,"y":130,"text":"Zeroï¼Ÿ"},
                          {"x":383,"y":198,"text":"ALU"},  //22
                          {"x":427,"y":184,"text":"ALU"},
                          {"x":427,"y":197,"text":"Out"},
@@ -199,13 +199,13 @@ define('datapath_widget', ["@jupyter-widgets/base",'d3'], function(widgets,d3) {
                          {"x":575,"y":235,"text":"U"},
                          {"x":576,"y":245,"text":"X"},
                          {"x":25,"y":60,"text":"Next PC"},   //37
-                         {"x":205,"y":60,"text":"£¨×¼±¸Ô´²Ù×÷Êı£©"},
-                         {"x":335,"y":60,"text":"£¨×¼±¸·Ã´æµØÖ·£©"},
-                         {"x":90,"y":35,"text":"È¡Ö¸Áî"},
-                         {"x":230,"y":35,"text":"Ö¸ÁîÒëÂë"},
-                         {"x":370,"y":35,"text":"Ö´ĞĞ"},
-                         {"x":495,"y":35,"text":"·Ã´æ"},
-                         {"x":565,"y":35,"text":"½á¹ûĞ´»Ø"},
+                         {"x":205,"y":60,"text":"ï¼ˆå‡†å¤‡æºæ“ä½œæ•°ï¼‰"},
+                         {"x":335,"y":60,"text":"ï¼ˆå‡†å¤‡è®¿å­˜åœ°å€ï¼‰"},
+                         {"x":90,"y":35,"text":"å–æŒ‡ä»¤"},
+                         {"x":230,"y":35,"text":"æŒ‡ä»¤è¯‘ç "},
+                         {"x":370,"y":35,"text":"æ‰§è¡Œ"},
+                         {"x":495,"y":35,"text":"è®¿å­˜"},
+                         {"x":565,"y":35,"text":"ç»“æœå†™å›"},
                          {"x":82,"y":136,"text":"4"},
                          {"x":360,"y":330,"text":"WB Data"}];  //46
             this.texts = this.svgContainer.selectAll("text")
@@ -219,7 +219,7 @@ define('datapath_widget', ["@jupyter-widgets/base",'d3'], function(widgets,d3) {
                 .style("stroke","black")
                 .style("stroke-width",1);
         
-            // »­Ô²
+            // ç”»åœ†
             this.jsonCircles = [{"cx":307,"cy":114},
                      {"cx":203,"cy":171},
                      {"cx":203,"cy":210},
@@ -235,7 +235,7 @@ define('datapath_widget', ["@jupyter-widgets/base",'d3'], function(widgets,d3) {
                 .style("stroke","black");
             //---------------------------------1.------------------------------------//
             
-            //----------------- 2. ÉèÖÃµ±Ç°Ö¸ÁîºÍ²½Öè £¬ÏÔÊ¾Ö¸ÁîÄÚÈİ-----------------//
+            //----------------- 2. è®¾ç½®å½“å‰æŒ‡ä»¤å’Œæ­¥éª¤ ï¼Œæ˜¾ç¤ºæŒ‡ä»¤å†…å®¹-----------------//
             var inst_rect = this.svgContainer.append("rect")
                         .attr("x",91)
                         .attr("y",290)
@@ -250,7 +250,7 @@ define('datapath_widget', ["@jupyter-widgets/base",'d3'], function(widgets,d3) {
                 .attr("y",302)
                 .attr("font-size",10)
                 .attr("stroke","black")
-                .text("µ±Ç°ÔËĞĞµÄÖ¸Áî")
+                .text("å½“å‰è¿è¡Œçš„æŒ‡ä»¤")
                 .attr("visibility","hidden");
             
             this.rectangles.on("mouseover",function(d,i){
