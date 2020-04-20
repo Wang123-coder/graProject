@@ -1,4 +1,4 @@
->>>RISC-V¼Ä´æÆ÷º¬Òå
+>>>RISC-Vå¯„å­˜å™¨å«ä¹‰
 x0 : the constant value0
 x1 : return address
 x2 : stack pointer
@@ -10,7 +10,7 @@ x9,x18-x27 : saved registers
 x10-x11 : function arguments/results
 x12-x17 : function arguments
 
->>>Ä¿Ç°Ö§³ÖµÄÖ¸Áî
+>>>ç›®å‰æ”¯æŒçš„æŒ‡ä»¤
 add rd rs1 rs2
 addi rd rs imm
 beq rs1 rs2 offset
