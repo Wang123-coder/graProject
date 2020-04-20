@@ -1,4 +1,4 @@
-//%%javascript
+//%%javascript 
 require.undef('cache_baseop');
 
 define('cache_baseop', ["@jupyter-widgets/base",'d3'], function(widgets,d3) {
@@ -59,7 +59,7 @@ define('cache_baseop', ["@jupyter-widgets/base",'d3'], function(widgets,d3) {
                               {"x":44,"y":60,"text":"Receive address"},
                               {"x":44,"y":75,"text":"RA from CPU"},
                               {"x":44,"y":110,"text":"Is block contain"},
-                              {"x":44,"y":125,"text":"-ing RA in cache£ø"}, 
+                              {"x":44,"y":125,"text":"-ing RA in cacheÔºü"}, 
                               {"x":44,"y":160,"text":"Fetch RA word &"},
                               {"x":44,"y":175,"text":"deliver into CPU"},
                               {"x":324,"y":110,"text":"Access main memory"},
@@ -71,8 +71,8 @@ define('cache_baseop', ["@jupyter-widgets/base",'d3'], function(widgets,d3) {
                               {"x":444,"y":221,"text":"Deliver RA word"},
                               {"x":444,"y":236,"text":"to CPU"},
                               {"x":70,"y":279,"text":"DONE"},
-                              {"x":200,"y":108,"text":"No£®»± ß£©"},
-                              {"x":95,"y":143,"text":"Yes£®√¸÷–£©"}];
+                              {"x":200,"y":108,"text":"NoÔºàÁº∫Â§±Ôºâ"},
+                              {"x":95,"y":143,"text":"YesÔºàÂëΩ‰∏≠Ôºâ"}];
             this.rects_text = this.svgContainer.selectAll("text")
                         .data(this.jsonRTexts)
                         .enter()
@@ -141,7 +141,7 @@ define('cache_baseop', ["@jupyter-widgets/base",'d3'], function(widgets,d3) {
                         .attr("y",60)
                         .attr("font-size",11)
                         .attr("visibility","hidden")
-                        .text("»± ß¥¶¿Ì£®ÃÊªªÀ„∑®£©")
+                        .text("Áº∫Â§±Â§ÑÁêÜÔºàÊõøÊç¢ÁÆóÊ≥ïÔºâ")
                         .style("stroke","red");
             
             this.step = this.model.get('step');
